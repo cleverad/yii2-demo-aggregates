@@ -3,10 +3,13 @@
 namespace app\entities\Employee;
 
 use Assert\Assertion;
+use app\repositories\InstantiateTrait;
 use yii\db\ActiveRecord;
 
 class Phone extends ActiveRecord
 {
+    use InstantiateTrait;
+
     private $country;
     private $code;
     private $number;
@@ -47,14 +50,6 @@ class Phone extends ActiveRecord
     public static function tableName()
     {
         return '{{%ar_employee_phones}}';
-    }
-
-    public static function instantiate($row)
-    {
-        $class = get_called_class();
-        $object = unserialize(sprintf('O:%d:"%s":0:{}', strlen($class), $class));
-        $object->init();
-        return $object;
     }
 
     public function afterFind()

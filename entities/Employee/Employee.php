@@ -5,6 +5,7 @@ namespace app\entities\Employee;
 use app\entities\AggregateRoot;
 use app\entities\Employee\Events;
 use app\entities\EventTrait;
+use app\repositories\InstantiateTrait;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\db\ActiveRecord;
 
@@ -14,7 +15,7 @@ use yii\db\ActiveRecord;
  */
 class Employee extends ActiveRecord implements AggregateRoot
 {
-    use EventTrait;
+    use EventTrait, InstantiateTrait;
 
     /**
      * @var EmployeeId
@@ -152,14 +153,6 @@ class Employee extends ActiveRecord implements AggregateRoot
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
-    }
-
-    public static function instantiate($row)
-    {
-        $class = get_called_class();
-        $object = unserialize(sprintf('O:%d:"%s":0:{}', strlen($class), $class));
-        $object->init();
-        return $object;
     }
 
     public function afterFind()

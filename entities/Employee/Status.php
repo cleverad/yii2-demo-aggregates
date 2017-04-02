@@ -2,11 +2,14 @@
 
 namespace app\entities\Employee;
 
+use app\repositories\InstantiateTrait;
 use Assert\Assertion;
 use yii\db\ActiveRecord;
 
 class Status extends ActiveRecord
 {
+    use InstantiateTrait;
+
     const ACTIVE = 'active';
     const ARCHIVED = 'archived';
 
@@ -47,14 +50,6 @@ class Status extends ActiveRecord
     public static function tableName()
     {
         return '{{%ar_employee_statuses}}';
-    }
-
-    public static function instantiate($row)
-    {
-        $class = get_called_class();
-        $object = unserialize(sprintf('O:%d:"%s":0:{}', strlen($class), $class));
-        $object->init();
-        return $object;
     }
 
     public function afterFind()
