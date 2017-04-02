@@ -9,6 +9,9 @@ return [
     'id' => 'basic-tests',
     'basePath' => dirname(__DIR__),    
     'language' => 'en-US',
+    'bootstrap' => [
+        'app\bootstrap\ContainerBootstrap',
+    ],
     'components' => [
         'db' => $dbParams,
         'mailer' => [
