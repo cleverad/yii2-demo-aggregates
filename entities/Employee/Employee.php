@@ -32,9 +32,9 @@ class Employee implements AggregateRoot
      */
     private $createDate;
     /**
-     * @var ArrayObject|Status[]
+     * @var Status[]
      */
-    private $statuses;
+    private $statuses = [];
 
     public function __construct(EmployeeId $id, Name $name, Address $address, array $phones)
     {
@@ -42,7 +42,6 @@ class Employee implements AggregateRoot
         $this->name = $name;
         $this->address = $address;
         $this->phones = new Phones($phones);
-        $this->statuses = new ArrayObject();
         $this->createDate = new \DateTimeImmutable();
         $this->addStatus(Status::ACTIVE, $this->createDate);
         $this->recordEvent(new Events\EmployeeCreated($this->id));
@@ -110,8 +109,7 @@ class Employee implements AggregateRoot
 
     private function getCurrentStatus()
     {
-        $statuses = $this->statuses->getArrayCopy();
-        return end($statuses);
+        return end($this->statuses);
     }
 
     private function addStatus($value, \DateTimeImmutable $date)
@@ -124,5 +122,5 @@ class Employee implements AggregateRoot
     public function getPhones() { return $this->phones->getAll(); }
     public function getAddress() { return $this->address; }
     public function getCreateDate() { return $this->createDate; }
-    public function getStatuses() { return $this->statuses->getArrayCopy(); }
+    public function getStatuses() { return $this->statuses; }
 }
