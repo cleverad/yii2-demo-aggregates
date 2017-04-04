@@ -24,4 +24,9 @@ abstract class Id
     {
         return $this->getId() === $other->getId();
     }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
 }
