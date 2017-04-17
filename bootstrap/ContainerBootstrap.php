@@ -10,6 +10,7 @@ use app\entities\Employee\Employee;
 use app\hydrator\Hydrator;
 use app\repositories\doctrine\listeners\EmployeeSubscriber;
 use app\repositories\doctrine\types\Employee\EmployeeIdType;
+use app\repositories\doctrine\types\Employee\StatusesType;
 use app\repositories\DoctrineEmployeeRepository;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\FilesystemCache;
@@ -45,6 +46,7 @@ class ContainerBootstrap implements BootstrapInterface
                 ->withTypes([
                     DateTimeImmutableType::NAME => DateTimeImmutableType::class,
                     EmployeeIdType::NAME => EmployeeIdType::class,
+                    StatusesType::NAME => StatusesType::class,
                 ])
                 ->build(['pdo' => $app->db->pdo]);
         });
