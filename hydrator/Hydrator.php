@@ -17,7 +17,7 @@ class Hydrator
 
         foreach ($fields as $field) {
             if (!$property = $reflection->getProperty($field)) {
-                throw new \InvalidArgumentException('Undefined property ' . $name);
+                throw new \InvalidArgumentException('Undefined property ' . $field);
             }
             $property->setAccessible(true);
             $result[$field] = $property->getValue($object);
